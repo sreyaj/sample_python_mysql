@@ -1,13 +1,13 @@
 language: python
 
 python:
-  - 2.6
-  - 2.7
-  - 3.3
-  - 3.4
+  #- 2.6
+  #- 2.7
+  #- 3.3
+  #- 3.4
   - 3.5
-  - pypy
-  - pypy3  
+  #- pypy
+  #- pypy3  
 install:
   - pip install -r requirements.txt
 
@@ -21,3 +21,9 @@ script:
   - nosetests test.py --with-xunit --xunit-file=shippable/testresults/nosetests.xml
   - which python && coverage run --branch test.py
   - which python && coverage xml -o shippable/codecoverage/coverage.xml test.py
+env:
+  global:
+    - APP_NAME=sreyaheroku
+
+after_success :
+  - git push -f git@heroku.com:$APP_NAME.git master
