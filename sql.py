@@ -18,8 +18,9 @@ class Mysql():
             cur.execute("INSERT INTO messages(message) VALUES('this is test message 4');")
             cur.execute("INSERT INTO messages(message) VALUES('this is test message 5');")
             con.commit()
-        except mdb.Error, e:
-            print "Error %d: %s" % (e.args[0],e.args[1])
+        except mdb.Error:
+            e = sys.exc_info()[1]
+            print("Error %d: %s" % (e.args[0],e.args[1]))
             sys.exit(1)
 
         finally:
@@ -32,8 +33,9 @@ class Mysql():
             cur.execute("select * from messages;")
             cnt = cur.fetchall()
             return len(cnt)
-        except mdb.Error, e:
-            print "Error %d: %s" % (e.args[0],e.args[1])
+        except mdb.Error:
+            e = sys.exc_info()[1]
+            print("Error %d: %s" % (e.args[0],e.args[1]))
             sys.exit(1)
 
         finally:
